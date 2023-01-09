@@ -1,32 +1,41 @@
-import movies from './movies.js';
+import axios from 'axios';
 
 class DataSource {
+  
   static searchMovie(keyword) {
-    const API_KEY = '8a42fec51700176cf226af95c008d6f0';
+    
     const query = encodeURI(keyword);
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`;
+    const url = `${process.env.MOV_BASEURL}/search/movie?api_key=${process.env.MOV_APIKEY}&query=${query}&page=1`;
 
-    return fetch(url)
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.results) {
-          return Promise.resolve(responseJson.results);
-        } else {
-          return Promise.reject(`${keyword} is not found`);
-        }
+    return axios.get(url)
+      .then(response => response.data.results)
+      .catch(error => {
+        throw new Error(`${keyword} is not found`);
       });
   }  
+  
   static getPopularMovies() {
-    const API_KEY = '8a42fec51700176cf226af95c008d6f0';
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
+    
+    const url = `${process.env.MOV_BASEURL}/movie/popular?api_key=${process.env.MOV_APIKEY}&page=1`;
 
-    return fetch(url)
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.results) {
-          return Promise.resolve(responseJson.results);
+    return axios.get(url)
+      .then(response => response.data.results)
+      .catch(error => {
+        throw new Error('Failed to get popular movies');
+      });
+  }
+  
+  static getMovie(id) {
+    
+    const url = `${process.env.MOV_BASEURL}/movie/${id}?api_key=${process.env.MOV_APIKEY}`;
+  
+    return axios.get(url)
+      .then(response => response.data)
+      .then(data => {
+        if (data) {
+          return Promise.resolve(data);
         } else {
-          return Promise.reject('Failed to get popular movies');
+          return Promise.reject(`Movie with id ${id} not found`);
         }
       });
   }

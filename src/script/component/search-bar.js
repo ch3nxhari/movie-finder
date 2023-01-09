@@ -21,28 +21,29 @@ class SearchBar extends HTMLElement {
   render() {
     this.shadowDOM.innerHTML = `
       <style>
+      
       .search-container {
         max-width: 800px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         padding: 16px;
         border-radius: 5px;
         display: flex;
-        position: sticky;
-        top: 10px;
-        background-color: white;
-      }
+        position: static;
+        right: 10px;
+        background-color: #3F3B6C;
+      }   
       
       .search-container > input {
         width: 75%;
         padding: 16px;
         border: 0;
-        border-bottom: 1px solid cornflowerblue;
+        border-bottom: 1px solid #A3C7D6;
         font-weight: bold;
       }
       
       .search-container > input:focus {
         outline: 0;
-        border-bottom: 2px solid cornflowerblue;
+        border-bottom: 2px solid #9F73AB;
       }
       
       .search-container > input:focus::placeholder {
@@ -50,7 +51,7 @@ class SearchBar extends HTMLElement {
       }
       
       .search-container > input::placeholder {
-        color: cornflowerblue;
+        color: #624F82;
         font-weight: normal;
       }
       
@@ -59,8 +60,8 @@ class SearchBar extends HTMLElement {
         cursor: pointer;
         margin-left: auto;
         padding: 16px;
-        background-color: cornflowerblue;
-        color: white;
+        background-color: #9F73AB;
+        color: #A3C7D6;
         border: 0;
         text-transform: uppercase;
       }
@@ -78,12 +79,11 @@ class SearchBar extends HTMLElement {
           width: 100%;
         }
       }
-      
       </style>
       
       <div id="search-container" class="search-container">
-        <input placeholder="Mangga pilari nami pilem na" id="searchElement" type="search">
-        <button id="searchButtonElement" type="submit">Cari</button>
+        <input placeholder="Masukkan nama tayangan..." id="searchElement" type="search">
+        <button id="searchButtonElement" type="submit">Temukan</button>
       </div>
     `;
 
